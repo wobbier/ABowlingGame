@@ -1,4 +1,4 @@
-#include "MitchGame.h"
+#include "ABowlingGame.h"
 #include "ECS/Component.h"
 #include "Engine/Clock.h"
 #include "Components/Transform.h"
@@ -16,17 +16,17 @@
 #include "Engine/World.h"
 #include "FilePath.h"
 
-MitchGame::MitchGame()
+ABowlingGame::ABowlingGame()
 	: Game()
 {
 }
 
-MitchGame::~MitchGame()
+ABowlingGame::~ABowlingGame()
 {
 	Game::~Game();
 }
 
-void MitchGame::Initialize()
+void ABowlingGame::Initialize()
 {
 	auto GameWorld = GetEngine().GetWorld().lock();
 
@@ -55,7 +55,7 @@ void MitchGame::Initialize()
 	GameWorld->AddCore<FlyingCameraCore>(*FlyingCameraController);
 }
 
-void MitchGame::Update(float DeltaTime)
+void ABowlingGame::Update(float DeltaTime)
 {
 	FlyingCameraController->Update(DeltaTime);
 
@@ -70,6 +70,6 @@ void MitchGame::Update(float DeltaTime)
 	}
 }
 
-void MitchGame::End()
+void ABowlingGame::End()
 {
 }

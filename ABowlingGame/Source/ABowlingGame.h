@@ -4,12 +4,12 @@
 #include <glm.hpp>
 #include "Cores/FlyingCameraCore.h"
 
-class MitchGame
+class ABowlingGame
 	: public Game
 {
 public:
-	MitchGame();
-	virtual ~MitchGame() override;
+	ABowlingGame();
+	virtual ~ABowlingGame() override;
 
 	virtual void Initialize() override;
 
