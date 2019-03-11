@@ -43,13 +43,10 @@ void ABowlingGame::Initialize()
 	SecondaryCamera.AddComponent<Camera>();
 	SecondaryCamera.AddComponent<Light>();
 	SecondaryCamera.AddComponent<FlyingCamera>();
+	SecondaryCamera.AddComponent<Model>("Assets/marcus.fbx");
 
-	Entity TestModel = GameWorld->CreateEntity();
-	Transform& ModelTransform = TestModel.AddComponent<Transform>("Cube");
-	ModelTransform.SetPosition(glm::vec3(0.f, 20.f, 0.f));
-	ModelTransform.SetScale(glm::vec3(1.5f, 1.5f, 1.5f));
-	TestModel.AddComponent<Rigidbody>();
-	TestModel.AddComponent<Model>("Assets/Cube.fbx");
+	PinSpotter = new PinSpotterCore(6);
+	GameWorld->AddCore<PinSpotterCore>(*PinSpotter);
 
 	FlyingCameraController = new FlyingCameraCore();
 	GameWorld->AddCore<FlyingCameraCore>(*FlyingCameraController);
@@ -58,11 +55,13 @@ void ABowlingGame::Initialize()
 void ABowlingGame::Update(float DeltaTime)
 {
 	FlyingCameraController->Update(DeltaTime);
+	PinSpotter->Update(DeltaTime);
 
 	Input& Instance = Input::GetInstance();
 	if (Instance.IsKeyDown(KeyCode::Number1))
 	{
 		MainCamera.GetComponent<Camera>().SetCurrent();
+		//TestModel.GetComponent<Transform>().SetPosition(glm::vec3(0, 20, 0));
 	}
 	if (Instance.IsKeyDown(KeyCode::Number2))
 	{

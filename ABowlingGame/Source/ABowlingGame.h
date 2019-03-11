@@ -3,6 +3,7 @@
 #include "Game.h"
 #include <glm.hpp>
 #include "Cores/FlyingCameraCore.h"
+#include "Cores/PinSpotterCore.h"
 
 class ABowlingGame
 	: public Game
@@ -18,7 +19,9 @@ public:
 	virtual void End() override;
 
 	FlyingCameraCore* FlyingCameraController;
+	PinSpotterCore* PinSpotter;
 
 	Entity MainCamera;
 	Entity SecondaryCamera;
+	Entity TestModel;
 };
