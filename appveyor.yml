@@ -2,7 +2,7 @@ version: 0.0.{build}
 os: Visual Studio 2017
     
 build:
-  project: MitchGame.sln
+  project: ABowlingGame.sln
   parallel: true
   verbosity: normal
 branches:

@@ -15,6 +15,7 @@
 #include <memory>
 #include "Engine/World.h"
 #include "FilePath.h"
+#include "Math/Vector3.h"
 
 ABowlingGame::ABowlingGame()
 	: Game()
@@ -32,18 +33,18 @@ void ABowlingGame::Initialize()
 
 	MainCamera = GameWorld->CreateEntity();
 	Transform& CameraPos = MainCamera.AddComponent<Transform>("Main Camera");
-	CameraPos.SetPosition(glm::vec3(0, 5, 20));
+	CameraPos.SetPosition(Vector3(0, 5, 20));
 	MainCamera.AddComponent<Camera>();
 	MainCamera.AddComponent<FlyingCamera>();
 	MainCamera.AddComponent<Light>();
 
 	SecondaryCamera = GameWorld->CreateEntity();
 	Transform& SecondaryPos = SecondaryCamera.AddComponent<Transform>("Secondary Camera");
-	SecondaryPos.SetPosition(glm::vec3(0, 5, 20));
+	SecondaryPos.SetPosition(Vector3(0, 5, 20));
 	SecondaryCamera.AddComponent<Camera>();
 	SecondaryCamera.AddComponent<Light>();
 	SecondaryCamera.AddComponent<FlyingCamera>();
-	SecondaryCamera.AddComponent<Model>("Assets/marcus.fbx");
+	//SecondaryCamera.AddComponent<Model>("Assets/marcus.fbx");
 
 	PinSpotter = new PinSpotterCore(6);
 	GameWorld->AddCore<PinSpotterCore>(*PinSpotter);
@@ -61,7 +62,6 @@ void ABowlingGame::Update(float DeltaTime)
 	if (Instance.IsKeyDown(KeyCode::Number1))
 	{
 		MainCamera.GetComponent<Camera>().SetCurrent();
-		//TestModel.GetComponent<Transform>().SetPosition(glm::vec3(0, 20, 0));
 	}
 	if (Instance.IsKeyDown(KeyCode::Number2))
 	{

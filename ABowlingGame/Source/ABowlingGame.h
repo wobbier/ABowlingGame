@@ -1,7 +1,6 @@
 #pragma once
 #include <DirectXMath.h>
 #include "Game.h"
-#include <glm.hpp>
 #include "Cores/FlyingCameraCore.h"
 #include "Cores/PinSpotterCore.h"
 
