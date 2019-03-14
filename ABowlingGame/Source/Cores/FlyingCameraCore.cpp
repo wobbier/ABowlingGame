@@ -64,11 +64,11 @@ void FlyingCameraCore::Update(float dt)
 			}
 			if (Instance.IsKeyDown(KeyCode::A))
 			{
-				TransformComponent.Translate(Vector3(glm::vec3(glm::normalize(glm::cross(CameraComponent.Up.GetInternalVec(), CameraComponent.Front.GetInternalVec())) * CameraSpeed)));
+				TransformComponent.Translate(CameraComponent.Up.Cross(CameraComponent.Front.GetInternalVec()).Normalized() * CameraSpeed);
 			}
 			if (Instance.IsKeyDown(KeyCode::D))
 			{
-				TransformComponent.Translate(glm::normalize(glm::cross(CameraComponent.Front.GetInternalVec(), CameraComponent.Up.GetInternalVec())) * CameraSpeed);
+				TransformComponent.Translate(CameraComponent.Front.Cross(CameraComponent.Up.GetInternalVec()).Normalized() * CameraSpeed);
 			}
 			if (Instance.IsKeyDown(KeyCode::Space))
 			{
@@ -76,11 +76,11 @@ void FlyingCameraCore::Update(float dt)
 			}
 			if (Instance.IsKeyDown(KeyCode::E))
 			{
-				TransformComponent.Translate(glm::normalize(glm::cross(glm::cross(CameraComponent.Front.GetInternalVec(), CameraComponent.Up.GetInternalVec()), CameraComponent.Front.GetInternalVec())) * CameraSpeed);
+				TransformComponent.Translate(CameraComponent.Front.Cross(CameraComponent.Up).Cross(CameraComponent.Front).Normalized() * CameraSpeed);
 			}
 			if (Instance.IsKeyDown(KeyCode::Q))
 			{
-				TransformComponent.Translate(glm::normalize(glm::cross(glm::cross(CameraComponent.Front.GetInternalVec(), -CameraComponent.Up.GetInternalVec()), CameraComponent.Front.GetInternalVec())) * CameraSpeed);
+				TransformComponent.Translate(CameraComponent.Front.Cross(-CameraComponent.Up).Cross(CameraComponent.Front).Normalized() * CameraSpeed);
 			}
 
 			Vector2 MousePosition = Instance.GetMousePosition();

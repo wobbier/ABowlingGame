@@ -12,26 +12,40 @@ class PinSpotterCore
 	: public Core<PinSpotterCore>
 {
 public:
-	PinSpotterCore(int InitialAmountOfPins)
+	PinSpotterCore(int InitialAmountOfRows)
 		: Core(ComponentFilter().Requires<Rigidbody>().Requires<Transform>())
-		, PinsToSpawn(InitialAmountOfPins)
+		, PinsToSpawn(InitialAmountOfRows)
 	{
 		Pins.reserve(PinsToSpawn);
 	}
 
 	virtual void Init() final
 	{
+		{
+			Entity alley = GetWorld().CreateEntity();
+			Transform& transform = alley.AddComponent<Transform>("Lane");
+			//transform.SetScale(Vector3(0.1f, 0.1f, 0.1f));
+			//alley.AddComponent<Model>("Assets/Lane.fbx");
+		}
+		Vector3 initialPosition(0, 0, 0);
+		int pinsPerRow = 1;
+		float pinWidth = 1.0f;
 		for (int i = 0; i < PinsToSpawn; ++i)
 		{
-			Entity pin = GetWorld().CreateEntity();
-			std::string name("Pin");
-			Transform& transform = pin.AddComponent<Transform>(name);
-			transform.SetPosition(Vector3(0, 20, 0));
-			transform.SetScale(Vector3(0.2f, 0.2f, 0.2f));
-			//transform.SetRotation(glm::vec3(-90, 0, 0));
-			pin.AddComponent<Rigidbody>();
-			pin.AddComponent<Model>("Assets/Pin.fbx");
-			Pins.push_back(std::move(pin));
+			int rowWidth = pinWidth * pinsPerRow;
+			for (int j = 0; j < pinsPerRow; ++j)
+			{
+				Entity pin = GetWorld().CreateEntity();
+				std::string name("Pin");
+				Transform& transform = pin.AddComponent<Transform>(name);
+				transform.SetPosition(Vector3(j - (rowWidth / 2), 5, -i));
+				transform.SetScale(Vector3(0.2f, 0.2f, 0.2f));
+				//transform.SetRotation(glm::vec3(-90, 0, 0));
+				pin.AddComponent<Rigidbody>();
+				pin.AddComponent<Model>("Assets/Pin.fbx");
+				Pins.push_back(std::move(pin));
+			}
+			pinsPerRow++;
 		}
 	}
 

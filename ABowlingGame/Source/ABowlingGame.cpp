@@ -46,6 +46,12 @@ void ABowlingGame::Initialize()
 	SecondaryCamera.AddComponent<FlyingCamera>();
 	//SecondaryCamera.AddComponent<Model>("Assets/marcus.fbx");
 
+	BowlingBall = GameWorld->CreateEntity();
+	Transform& ballTransform = BowlingBall.AddComponent<Transform>("BowlingBall");
+	ballTransform.SetScale(0.1f);
+	BowlingBall.AddComponent<Model>("Assets/Models/BowlingBall.fbx");
+	BowlingBall.AddComponent<Rigidbody>();
+
 	PinSpotter = new PinSpotterCore(6);
 	GameWorld->AddCore<PinSpotterCore>(*PinSpotter);
 
@@ -66,6 +72,13 @@ void ABowlingGame::Update(float DeltaTime)
 	if (Instance.IsKeyDown(KeyCode::Number2))
 	{
 		SecondaryCamera.GetComponent<Camera>().SetCurrent();
+	}
+
+	if (Input::GetInstance().IsKeyDown(KeyCode::LeftButton))
+	{
+		Transform& transform = BowlingBall.GetComponent<Transform>();
+		transform.SetPosition(MainCamera.GetComponent<Transform>().GetPosition());
+		BowlingBall.GetComponent<Rigidbody>().ApplyForce(Camera::CurrentCamera->Front, 500);
 	}
 }
 

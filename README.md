@@ -1,5 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/uwttukf4i7x87g4y?svg=true)](https://ci.appveyor.com/project/wobbier/mitchgame)
-![license](https://img.shields.io/github/license/wobbier/mitchgame.svg)
+[![Build status](https://ci.appveyor.com/api/projects/status/rkr0e4jx81758dqd?svg=true)](https://ci.appveyor.com/project/wobbier/abowlinggame)
+![license](https://img.shields.io/github/license/wobbier/abowlinggame.svg)
 ======
 This is an example project to get you started making games in the [MitchEngine][2].
 

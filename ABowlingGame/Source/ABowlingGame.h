@@ -23,4 +23,5 @@ public:
 	Entity MainCamera;
 	Entity SecondaryCamera;
 	Entity TestModel;
+	Entity BowlingBall;
 };
