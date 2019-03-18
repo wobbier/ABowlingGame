@@ -16,5 +16,5 @@ public:
 	float FlyingSpeed = 5.f;
 
 	float LookSensitivity = .15f;
-	float SpeedModifier = 10.f;
+	float SpeedModifier = 100.f;
 };

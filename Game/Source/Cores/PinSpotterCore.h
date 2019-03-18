@@ -40,9 +40,13 @@ public:
 				Transform& transform = pin.AddComponent<Transform>(name);
 				transform.SetPosition(Vector3(j - (rowWidth / 2), 5, -i));
 				transform.SetScale(Vector3(0.2f, 0.2f, 0.2f));
+				Entity pinModel = GetWorld().CreateEntity();
+				Transform& modelTransform = pinModel.AddComponent<Transform>(std::string("PinModel"));
+				modelTransform.SetParent(transform);
+				modelTransform.SetPosition(Vector3(0, -0.5, 0));
+				pinModel.AddComponent<Model>("Assets/Pin.fbx");
 				//transform.SetRotation(glm::vec3(-90, 0, 0));
 				pin.AddComponent<Rigidbody>();
-				pin.AddComponent<Model>("Assets/Pin.fbx");
 				Pins.push_back(std::move(pin));
 			}
 			pinsPerRow++;
