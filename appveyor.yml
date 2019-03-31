@@ -10,7 +10,6 @@ branches:
     - master
 configuration:
  - Debug
- - Release
  - Release Editor
 before_build:
   - git submodule init
@@ -27,10 +26,10 @@ before_build:
   - nuget restore
 after_build:
   - mkdir _Artifacts
-  - xcopy /y /d /s Build\%CONFIGURATION%\Assets _Artifacts\Assets\
-  - xcopy /y /d %APPVEYOR_BUILD_FOLDER%\Build\%CONFIGURATION%\*.dll %APPVEYOR_BUILD_FOLDER%\_Artifacts
-  - xcopy /y /d %APPVEYOR_BUILD_FOLDER%\Build\%CONFIGURATION%\*.exe %APPVEYOR_BUILD_FOLDER%\_Artifacts
-  - 7z a %APPVEYOR_BUILD_FOLDER%\MitchGame_%APPVEYOR_REPO_BRANCH%_%APPVEYOR_BUILD_VERSION%_%CONFIGURATION%.zip _Artifacts
+  - xcopy /y /d /s "Build\%CONFIGURATION%\Assets" _Artifacts\Assets\
+  - xcopy /y /d "%APPVEYOR_BUILD_FOLDER%\Build\%CONFIGURATION%\*.dll" %APPVEYOR_BUILD_FOLDER%\_Artifacts
+  - xcopy /y /d "%APPVEYOR_BUILD_FOLDER%\Build\%CONFIGURATION%\*.exe" %APPVEYOR_BUILD_FOLDER%\_Artifacts
+  - 7z a "%APPVEYOR_BUILD_FOLDER%\ABowlingGame_%APPVEYOR_REPO_BRANCH%_%APPVEYOR_BUILD_VERSION%_%CONFIGURATION%.zip" _Artifacts
   
 artifacts:
-- path: MitchGame_$(appveyor_repo_branch)_$(appveyor_build_version)_$(configuration).zip
+- path: ABowlingGame_$(appveyor_repo_branch)_$(appveyor_build_version)_$(configuration).zip
