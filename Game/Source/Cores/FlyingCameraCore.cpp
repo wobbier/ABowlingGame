@@ -48,6 +48,19 @@ void FlyingCameraCore::Update(float dt)
 
 		if (&CameraComponent == Camera::CurrentCamera)
 		{
+			if (Instance.IsKeyDown(KeyCode::LeftButton))
+			{
+				if (!PreviousMouseDown)
+				{
+					FirstUpdate = true;
+					PreviousMouseDown = true;
+				}
+			}
+			else
+			{
+				PreviousMouseDown = false;
+				return;
+			}
 			float CameraSpeed = FlyingCameraComponent.FlyingSpeed;
 			if (Instance.IsKeyDown(KeyCode::LeftShift))
 			{

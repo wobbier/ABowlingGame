@@ -30,4 +30,5 @@ private:
 	float LastY = 0.f;
 	bool FirstUpdate = true;
 	bool InputEnabled = false;
+	bool PreviousMouseDown = false;
 };
