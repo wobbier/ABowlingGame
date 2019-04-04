@@ -20,8 +20,8 @@ public:
 	FlyingCameraCore* FlyingCameraController;
 	PinSpotterCore* PinSpotter;
 
-	Entity MainCamera;
-	Entity SecondaryCamera;
-	Entity TestModel;
-	Entity BowlingBall;
+	WeakPtr<Entity> MainCamera;
+	WeakPtr<Entity> SecondaryCamera;
+	WeakPtr<Entity> TestModel;
+	WeakPtr<Entity> BowlingBall;
 };

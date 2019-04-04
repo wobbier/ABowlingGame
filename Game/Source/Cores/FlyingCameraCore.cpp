@@ -48,7 +48,7 @@ void FlyingCameraCore::Update(float dt)
 
 		if (&CameraComponent == Camera::CurrentCamera)
 		{
-			if (Instance.IsKeyDown(KeyCode::LeftButton))
+			if (Instance.IsKeyDown(KeyCode::RightButton))
 			{
 				if (!PreviousMouseDown)
 				{
@@ -144,3 +144,12 @@ bool FlyingCameraCore::OnEvent(const BaseEvent& evt)
 
 	return false;
 }
+
+#if ME_EDITOR
+
+void FlyingCameraCore::OnEditorInspect()
+{
+	Base::OnEditorInspect();
+}
+
+#endif

@@ -22,8 +22,8 @@ public:
 	virtual void Init() final
 	{
 		{
-			Entity alley = GetWorld().CreateEntity();
-			Transform& transform = alley.AddComponent<Transform>("Lane");
+			WeakPtr<Entity> alley = GetWorld().CreateEntity();
+			Transform& transform = alley.lock()->AddComponent<Transform>("Lane");
 			//transform.SetScale(Vector3(0.1f, 0.1f, 0.1f));
 			//alley.AddComponent<Model>("Assets/Lane.fbx");
 		}
@@ -35,19 +35,19 @@ public:
 			int rowWidth = pinWidth * pinsPerRow;
 			for (int j = 0; j < pinsPerRow; ++j)
 			{
-				Entity pin = GetWorld().CreateEntity();
+				WeakPtr<Entity> pin = GetWorld().CreateEntity();
 				std::string name("Pin");
-				Transform& transform = pin.AddComponent<Transform>(name);
+				Transform& transform = pin.lock()->AddComponent<Transform>(name);
 				transform.SetPosition(Vector3(j - (rowWidth / 2), 5, -i));
 				transform.SetScale(Vector3(0.2f, 0.2f, 0.2f));
-				Entity pinModel = GetWorld().CreateEntity();
-				Transform& modelTransform = pinModel.AddComponent<Transform>(std::string("PinModel"));
+				WeakPtr<Entity> pinModel = GetWorld().CreateEntity();
+				Transform& modelTransform = pinModel.lock()->AddComponent<Transform>(std::string("PinModel"));
 				modelTransform.SetParent(transform);
 				modelTransform.SetPosition(Vector3(0, -0.5, 0));
-				pinModel.AddComponent<Model>("Assets/Pin.fbx");
+				pinModel.lock()->AddComponent<Model>("Assets/Pin.fbx");
 				//transform.SetRotation(glm::vec3(-90, 0, 0));
-				pin.AddComponent<Rigidbody>();
-				Pins.push_back(std::move(pin));
+				pin.lock()->AddComponent<Rigidbody>();
+				Pins.push_back(pin);
 			}
 			pinsPerRow++;
 		}
@@ -73,5 +73,5 @@ public:
 	}
 private:
 	unsigned int PinsToSpawn = 1;
-	std::vector<Entity> Pins;
+	std::vector<WeakPtr<Entity>> Pins;
 };

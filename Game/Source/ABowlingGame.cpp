@@ -20,6 +20,8 @@
 ABowlingGame::ABowlingGame()
 	: Game()
 {
+	PinSpotter = new PinSpotterCore(6);
+	FlyingCameraController = new FlyingCameraCore();
 }
 
 ABowlingGame::~ABowlingGame()
@@ -32,30 +34,28 @@ void ABowlingGame::Initialize()
 	auto GameWorld = GetEngine().GetWorld().lock();
 
 	MainCamera = GameWorld->CreateEntity();
-	Transform& CameraPos = MainCamera.AddComponent<Transform>("Main Camera");
+	Transform& CameraPos = MainCamera.lock()->AddComponent<Transform>("Main Camera");
 	CameraPos.SetPosition(Vector3(0, 5, 20));
-	MainCamera.AddComponent<Camera>();
-	MainCamera.AddComponent<FlyingCamera>();
-	MainCamera.AddComponent<Light>();
+	MainCamera.lock()->AddComponent<Camera>().SetCurrent();
+	MainCamera.lock()->AddComponent<FlyingCamera>();
+	MainCamera.lock()->AddComponent<Light>();
 
 	SecondaryCamera = GameWorld->CreateEntity();
-	Transform& SecondaryPos = SecondaryCamera.AddComponent<Transform>("Secondary Camera");
+	Transform& SecondaryPos = SecondaryCamera.lock()->AddComponent<Transform>("Secondary Camera");
 	SecondaryPos.SetPosition(Vector3(0, 5, 20));
-	SecondaryCamera.AddComponent<Camera>();
-	SecondaryCamera.AddComponent<Light>();
-	SecondaryCamera.AddComponent<FlyingCamera>();
+	SecondaryCamera.lock()->AddComponent<Camera>();
+	SecondaryCamera.lock()->AddComponent<Light>();
+	SecondaryCamera.lock()->AddComponent<FlyingCamera>();
 	//SecondaryCamera.AddComponent<Model>("Assets/marcus.fbx");
 
 	BowlingBall = GameWorld->CreateEntity();
-	Transform& ballTransform = BowlingBall.AddComponent<Transform>("BowlingBall");
+	Transform& ballTransform = BowlingBall.lock()->AddComponent<Transform>("BowlingBall");
 	ballTransform.SetScale(0.1f);
-	BowlingBall.AddComponent<Model>("Assets/Models/BowlingBall.fbx");
-	BowlingBall.AddComponent<Rigidbody>();
+	BowlingBall.lock()->AddComponent<Model>("Assets/Models/BowlingBall.fbx");
+	BowlingBall.lock()->AddComponent<Rigidbody>();
 
-	PinSpotter = new PinSpotterCore(6);
 	GameWorld->AddCore<PinSpotterCore>(*PinSpotter);
 
-	FlyingCameraController = new FlyingCameraCore();
 	GameWorld->AddCore<FlyingCameraCore>(*FlyingCameraController);
 }
 
@@ -67,18 +67,18 @@ void ABowlingGame::Update(float DeltaTime)
 	Input& Instance = Input::GetInstance();
 	if (Instance.IsKeyDown(KeyCode::Number1))
 	{
-		MainCamera.GetComponent<Camera>().SetCurrent();
+		MainCamera.lock()->GetComponent<Camera>().SetCurrent();
 	}
 	if (Instance.IsKeyDown(KeyCode::Number2))
 	{
-		SecondaryCamera.GetComponent<Camera>().SetCurrent();
+		SecondaryCamera.lock()->GetComponent<Camera>().SetCurrent();
 	}
 
 	if (Input::GetInstance().IsKeyDown(KeyCode::LeftButton))
 	{
-		Transform& transform = BowlingBall.GetComponent<Transform>();
-		transform.SetPosition(MainCamera.GetComponent<Transform>().GetPosition());
-		BowlingBall.GetComponent<Rigidbody>().ApplyForce(Camera::CurrentCamera->Front, 500);
+		Transform& transform = BowlingBall.lock()->GetComponent<Transform>();
+		transform.SetPosition(MainCamera.lock()->GetComponent<Transform>().GetPosition());
+		BowlingBall.lock()->GetComponent<Rigidbody>().ApplyForce(Camera::CurrentCamera->Front, 500);
 	}
 }
 

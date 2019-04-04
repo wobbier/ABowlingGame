@@ -17,4 +17,8 @@ public:
 
 	float LookSensitivity = .15f;
 	float SpeedModifier = 100.f;
+
+#if ME_EDITOR
+	virtual void OnEditorInspect() final;
+#endif
 };

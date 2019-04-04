@@ -31,4 +31,10 @@ private:
 	bool FirstUpdate = true;
 	bool InputEnabled = false;
 	bool PreviousMouseDown = false;
+
+#if ME_EDITOR
+
+	virtual void OnEditorInspect() final;
+
+#endif
 };
