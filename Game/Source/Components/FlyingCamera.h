@@ -1,5 +1,6 @@
 #pragma once
 #include "ECS/Component.h"
+#include "ECS/ComponentDetail.h"
 #include <string>
 
 class FlyingCamera
@@ -22,3 +23,4 @@ public:
 	virtual void OnEditorInspect() final;
 #endif
 };
+ME_REGISTER_COMPONENT(FlyingCamera)
