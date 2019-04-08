@@ -44,7 +44,6 @@ void App::SetWindow(CoreWindow^ window)
 // Initializes scene resources, or loads a previously saved app state.
 void App::Load(Platform::String^ entryPoint)
 {
-	m_main->Start();
 }
 
 // This method is called after the window becomes active.

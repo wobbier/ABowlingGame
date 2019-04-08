@@ -74,4 +74,12 @@ public:
 private:
 	unsigned int PinsToSpawn = 1;
 	std::vector<WeakPtr<Entity>> Pins;
+public:
+
+	void Destroy()
+	{
+		Pins.clear();
+	}
+
+
 };
