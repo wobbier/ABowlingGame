@@ -7,6 +7,7 @@
 #include "Components/Graphics/Model.h"
 #include "Engine/Input.h"
 #include <string>
+#include "Pointers.h"
 
 class PinSpotterCore
 	: public Core<PinSpotterCore>
