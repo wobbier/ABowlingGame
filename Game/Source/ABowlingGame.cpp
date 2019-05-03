@@ -19,7 +19,7 @@
 ABowlingGame::ABowlingGame()
 	: Game()
 {
-	PinSpotter = new PinSpotterCore(6);
+	PinSpotter = new PinSpotterCore(0);
 }
 
 ABowlingGame::~ABowlingGame()
@@ -47,11 +47,26 @@ void ABowlingGame::OnStart()
 	SecondaryCamera.lock()->AddComponent<Light>();
 	//SecondaryCamera.AddComponent<Model>("Assets/marcus.fbx");
 
-	BowlingBall = GameWorld->CreateEntity();
-	Transform& ballTransform = BowlingBall.lock()->AddComponent<Transform>("BowlingBall");
-	ballTransform.SetScale(0.1f);
-	BowlingBall.lock()->AddComponent<Model>("Assets/Models/BowlingBall.fbx");
-	BowlingBall.lock()->AddComponent<Rigidbody>();
+	//BowlingBall = GameWorld->CreateEntity();
+	//Transform& ballTransform = BowlingBall.lock()->AddComponent<Transform>("BowlingBall");
+	//ballTransform.SetScale(0.1f);
+	//BowlingBall.lock()->AddComponent<Model>("Assets/Models/BowlingBall.fbx");
+	//BowlingBall.lock()->AddComponent<Rigidbody>();
+
+	Transform* prevEntity = nullptr;
+	for (int i = 0; i < 10; ++i)
+	{
+		WeakPtr<Entity> BowlingBall2 = GameWorld->CreateEntity();
+		Transform& ballTransform = BowlingBall2.lock()->AddComponent<Transform>("BowlingBall" + i);
+		ballTransform.SetPosition(Vector3(i, i, 0));
+		//ballTransform.SetScale(0.1f);
+		if (prevEntity != nullptr)
+		{
+			ballTransform.SetParent(*prevEntity);
+		}
+		BowlingBall2.lock()->AddComponent<Model>("Assets/Models/BowlingBall.fbx");
+		prevEntity = &ballTransform;
+	}
 
 	GameWorld->AddCore<PinSpotterCore>(*PinSpotter);
 }
@@ -72,9 +87,9 @@ void ABowlingGame::OnUpdate(float DeltaTime)
 
 	if (Input::GetInstance().IsKeyDown(KeyCode::LeftButton))
 	{
-		Transform& transform = BowlingBall.lock()->GetComponent<Transform>();
-		transform.SetPosition(MainCamera.lock()->GetComponent<Transform>().GetPosition());
-		BowlingBall.lock()->GetComponent<Rigidbody>().ApplyForce(Camera::CurrentCamera->Front, 500);
+		//Transform& transform = BowlingBall.lock()->GetComponent<Transform>();
+		//transform.SetPosition(MainCamera.lock()->GetComponent<Transform>().GetPosition());
+		//BowlingBall.lock()->GetComponent<Rigidbody>().ApplyForce(Camera::CurrentCamera->Front, 500);
 	}
 }
 
