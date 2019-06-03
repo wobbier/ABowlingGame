@@ -1,9 +1,10 @@
 #include "ABowlingGame.h"
+#include "Engine/Engine.h"
 
 int main()
 {
-	ABowlingGame* game = new ABowlingGame();
-	game->Run();
+	GetEngine().Init(new ABowlingGame());
+	GetEngine().Run();
 
 	return 0;
 }

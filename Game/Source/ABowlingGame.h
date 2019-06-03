@@ -3,18 +3,19 @@
 #include "Game.h"
 #include "Cores/PinSpotterCore.h"
 
-class ABowlingGame
+class ABowlingGame final
 	: public Game
 {
 public:
 	ABowlingGame();
-	virtual ~ABowlingGame() override;
+	~ABowlingGame();
 
-	virtual void OnInitialize() override;
+	virtual void OnInitialize() final;
 
-	virtual void OnStart() override;
-	virtual void OnUpdate(float DeltaTime) override;
-	virtual void OnEnd() override;
+	virtual void OnStart() final;
+	virtual void OnUpdate(float DeltaTime) final;
+	virtual void PostRender() final;
+	virtual void OnEnd() final;
 
 	PinSpotterCore* PinSpotter;
 

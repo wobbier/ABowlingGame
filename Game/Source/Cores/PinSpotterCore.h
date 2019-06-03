@@ -8,6 +8,7 @@
 #include "Engine/Input.h"
 #include <string>
 #include "Pointers.h"
+#include "Engine/World.h"
 
 class PinSpotterCore
 	: public Core<PinSpotterCore>
@@ -81,6 +82,4 @@ public:
 	{
 		Pins.clear();
 	}
-
-
 };

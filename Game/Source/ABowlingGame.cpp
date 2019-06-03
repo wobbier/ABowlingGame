@@ -15,6 +15,7 @@
 #include "Engine/World.h"
 #include "FilePath.h"
 #include "Math/Vector3.h"
+#include "Engine/Engine.h"
 
 ABowlingGame::ABowlingGame()
 	: Game()
@@ -24,7 +25,6 @@ ABowlingGame::ABowlingGame()
 
 ABowlingGame::~ABowlingGame()
 {
-	Game::~Game();
 }
 
 void ABowlingGame::OnInitialize()
@@ -99,4 +99,9 @@ void ABowlingGame::OnEnd()
 	MainCamera.reset();
 	SecondaryCamera.reset();
 	BowlingBall.reset();
+}
+
+void ABowlingGame::PostRender()
+{
+	throw std::logic_error("The method or operation is not implemented.");
 }
